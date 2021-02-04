@@ -1,0 +1,329 @@
+<html>
+<head>
+     <title>CZ3006 Assignment 2 HTML</title>
+
+<!-- CSS Styling starts here  -->
+<style type="text/css">
+
+/* Styling for Top Image Banner in the HTML */
+.banner
+{
+float: left; 
+width: 538px; 
+padding: 5px; 
+} 
+
+/* Styling for Top Image Banner in the HTML */
+.bannerStyle::after
+{
+content: ""; 
+clear: both; 
+display:table; 
+
+}
+
+/* Styling for Table and Table Cells */
+table, td 
+{
+border: 1px solid black; 
+width: 400px;
+margin-top: 10px; 
+margin-left: 35px; 
+margin-right: 400px; 
+}
+
+/* Styling for Table First Row */
+.tableHead
+{
+text-align:center; 
+font-style: normal; 
+font-weight: bold; 
+font-size: x-large;
+color: #e01f1f;
+background-color: #4bdae7;
+
+}
+
+/* Styling for <div> section where the Table will resides in */
+.tableSection 
+{
+margin-left: 400px;
+margin-right: 400px;
+background-color: #d2f6f9; 
+}
+
+/* Styling for Submit and Reset Button */
+.btnStyle 
+{
+border-width: medium;
+border-color: #00CCFF; 
+font-size: small; 
+font-size: medium;
+}
+
+/* Styling for Fruits Images */
+.imgStyle 
+{
+width: 60px;
+height: 50px; 
+vertical-align:middle;
+text-align: center;
+}
+
+</style>
+</head>
+
+
+<!-- <div> section where it holds the Top Banner Images -->
+<div class ="bannerStyle"> 
+<div class = "banner"> 
+	<img alt="" src="Images/fruits%20banner2.png" />
+</div>
+
+<div class = "banner">
+	<img alt="" src="Images/fruits%20banner.png" />
+</div>
+</div>
+
+
+<body bgcolor="#a5ecf3">
+    <form action="orderReceipt.php" method="post" onsubmit="return validateEmpty()">
+      <div class ="tableSection">
+            <table id="orderFormTable" >
+           
+		<!-- Row for Table Header -->
+ 		 <tr> 
+                   	 <td colspan = "2" class = "tableHead"> 
+				Fruits Order Forms 
+	           	</td>
+                 </tr>
+
+		<!-- Row for Ordering Apples -->
+		  <tr> 
+                    	<td > Apples: <br/>
+				<img alt="" src="Images/apple.png" onmouseover="enlargeFruit(this)" onmouseout="normalFruit(this)" width="42" height="42" />  <br/> <b>(69&#162; each)</b>
+			</td>
+                    	
+			<td>
+				<input id="appleText" name="apple" type="text" placeholder="0" onkeyup="validateValue()"/>
+			</td>
+                  </tr>
+
+		<!-- Row for Ordering Oranges -->
+                <tr>  
+                    	<td >Oranges: <br/>
+				<img alt="" src="Images/orange.png" onmouseover="enlargeFruit(this)" onmouseout="normalFruit(this)" width="42" height="42" /> <br/> <b> (59&#162; each) </b>
+			</td>
+
+                    	<td>
+                        	<input id="orangeText" name="orange" type="text" placeholder="0" onkeyup="validateValue()" />
+			</td>
+                </tr>
+
+		<!-- Row for Ordering Bananas -->
+                <tr> 
+                    	<td >Bananas: <br/>
+				<img alt="" src="Images/banana.png" onmouseover="enlargeBanana(this)" onmouseout="normalBanana(this)" width="52" height="42" /> <br/> <b>(39&#162; each)</b>
+			</td>
+
+                   	<td>
+                        	<input id="baText" name="banana" type="text" placeholder="0" onkeyup="validateValue()" />
+			</td>
+                </tr>
+
+		<!-- Row to Display the Total Amount Ordered -->
+                <tr>  
+                    	<td>Total Amount:</td>
+
+                    	<td>
+                        	<input id="totalText" name="total" type="text" value = "$0.00"  readonly />
+			</td>
+                </tr>
+
+		<!-- Row for Warning Text -->
+		<tr> 
+                    	<td colspan = "2" bgcolor="D2F9FC" style="font-size: small; color: #FF0000; font-style: italic;">
+				*Please ensure that you have ordered at least 1 fruit before continuing
+			</td>
+                </tr>
+
+		<!-- Row for User Name -->
+		<tr> 
+                    	<td> Your Name:  </td>
+                   	
+			 <td >
+                       	 	<input id="nameText" name="Uname" type="text" placeholder="Enter your Name" />
+			 </td>
+                </tr>
+
+		<!-- Row for Payment Method -->
+                <tr> 
+                    <td >Payment Method:</td>
+                   
+			<td>
+                        	<input id="visaRadio" type="radio" name="paymethod" value="Visa"/> Visa <img alt="" src="Images/visa%20logo.png" class="imgStyle" /> <br />
+                        	<input id="masterRadio" type="radio" name="paymethod" value="MasterCard"/> MasterCard <img alt="" src="Images/mastercard%20logo.png" class="imgStyle" /> <br />
+                        	<input id="discoverRadio" type="radio" name="paymethod" value="Discover"/> Discover <img alt="" src="Images/discover%20logo.png" class="imgStyle" />
+			</td>
+                  </tr>
+    
+	       <!-- Row for Styling Purposes -->
+               <tr> 
+
+                    <td colspan = "2" bgcolor="D2F9FC">&nbsp</td>
+                    
+               </tr>
+
+	       <!-- Row for Submit and Reset Buttons -->
+               <tr> 
+                    	<td colspan="2" height="30">  
+                        	<input id="orderSubmit" type="submit" value="Submit" class = "btnStyle" style="margin-left:135px;" />
+				<input id="orderReset" type="reset" value="Reset" class = "btnStyle" />
+			</td>
+              </tr>
+
+          </table>
+   </div>
+</form>
+
+<!-- Javascript starts here -->
+<script type="text/javascript">
+
+// Function to validate if the entered text is a digit 
+function validateValue() 
+{
+
+var vApple, vOrange, vBanana; // Variables to store data for subsequent access 
+var cApple, cOrnages, cBanana; //Variables to store the results from validating if the entered digit is a vaild one
+var costA = 0.69; // Declaring the cost of Apple 
+var costO = 0.59; // Declaring the cost of Orange 
+var costB = 0.39; // Declaring the cost of Bananas 
+
+vApple = document.getElementById("appleText").value; // Assigning the value in the Apple textbox to vApple 
+vOrange = document.getElementById("orangeText").value; // Assigning the value in the Orange textbox to vOrange 
+vBanana = document.getElementById("baText").value; // Assigning the value in the Banana textbox to vBanana 
+
+//Next 3 lines are formula that is used to check if the entered values in the respective textboxes are Whole Number Digits 
+cApple = vApple % 1; 
+cOrange = vOrange % 1; 
+cBanana = vBanana % 1;
+
+//If-else statements that display different results based on whether the entered value is a Valid Digit  
+	if (isNaN(vApple) || cApple != 0) {
+	       alert("Please enter a Vaild Digit! (E.g. 1, 2)");
+               document.getElementById("appleText").value = "";
+	       document.getElementById("appleText").style.borderColor = "red"; 
+	 }
+
+
+        if (isNaN(vOrange) || cOrange != 0) {
+               alert("Please enter a Vaild Digit! (E.g. 1, 2)");
+	       document.getElementById("orangeText").value = "";
+	       document.getElementById("orangeText").style.borderColor = "red"; 
+
+        }
+
+        if (isNaN(vBanana) || cBanana != 0) {
+	       alert("Please enter a Vaild Digit! (E.g. 1, 2)");
+               document.getElementById("baText").value = "";
+	       document.getElementById("baText").style.borderColor = "red"; 
+
+        }
+
+	//Checking if any entered Value is not a Whole Number 
+        else {
+	      if(cApple != 0 || cOrange != 0 || cBanana != 0 )
+       	{
+
+		document.getElementById("totalText").value = "NaN"; 
+
+	}
+
+	//Once the Values has passed all vaildation, counting of the total amount will happen here
+	else {
+            var totalACost = parseFloat(vApple * costA); //Counting Total Cost of Apple 
+            var totalOCost = parseFloat(vOrange * costO); //Counting Total Cost of Oranges
+            var totalBCost = parseFloat(vBanana * costB); //Counting Total Cost of Bananas
+            var totalAmt = totalACost + totalOCost + totalBCost; //Counting Total Cost of all the Fruits 
+
+            document.getElementById("totalText").value = "$" + totalAmt.toFixed(2); //Displaying the Total Cost, rounded to 2 decimal points. 
+        }
+
+}
+    }
+
+
+//Function to validate if the Name text field is empty or the User has not ordered any fruits 
+function validateEmpty() {
+       
+var eName, eTotal, ePay; //Variables to store the Name, Total Amount Value and Payment Method from the HTML 
+eName = document.getElementById("nameText").value;
+eTotal = document.getElementById("totalText").value;
+ePay = document.getElementsByName("paymethod"); 
+
+//If statement to check if the User has entered a Name
+if(eName == "" || eName == "Enter your Name")
+{
+            alert("Please enter your Name!");
+	    eName.value = "Enter your Name";
+	    document.getElementById("nameText").style.borderColor = "red";
+	    return false; 
+
+}
+
+//If statement to check whether the User has ordered at least 1 fruit
+if(eTotal == "$0.00" || eTotal == "NaN" )
+{
+            alert("Please order some Fruits!");
+	    return false; 
+
+}
+
+//For Statement to check if the User has selected a Payment Method 
+for(var i = 0, len = ePay.length; i<len; i++)
+{
+	if(ePay[i].checked)
+	{
+		return true; 
+	}
+}
+	    alert("Please select a Payment Method!");
+	    return false;
+}
+
+//Function for the mouseover enlarge fruits (Apple & Orange) image
+function enlargeFruit(x)
+{
+  x.style.height = "134px";
+  x.style.width = "134px";
+
+}
+
+//Function for returning the image size back to original 
+function normalFruit(x)
+{
+  x.style.height = "42px";
+  x.style.width = "42px";
+
+}
+
+//Function for the mouseover enlarge fruits (Banana) image. 
+//*Due to the different image size dimension from Apple and Orange, a different function with the same functionality is created for Banana
+function enlargeBanana(x)
+{
+  x.style.height = "134px";
+  x.style.width = "154px";
+
+}
+
+//Function for returning the image size back to original 
+function normalBanana(x)
+{
+  x.style.height = "42px";
+  x.style.width = "52px";
+
+}
+
+</script>
+</body>
+</html>
