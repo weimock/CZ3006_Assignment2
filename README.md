@@ -13,6 +13,7 @@ This assignment aims to enhance students' understanding of Web client-side progr
 YOUR TASKS
 
 Write an HTML document to create a form that contains:
+
 1)A text box to collect the user’s name.
 Three text boxes for the user to key in the numbers of apples (69 cents each), oranges (59 cents each), and bananas (39 cents each) to purchase respectively. Whenever the user’s input in any of these text boxes changes, the validity of the input is checked at the client side using JavaScript. A valid input is defined as a sequence of one or more digits. If the input is not valid, an alert message is produced and the user is asked to input again.
 A text box showing the total cost of the user’s order. The purpose of this text box is to show the total cost of order to the user during his selection. This text box is not for user’s input, so it should be blurred whenever it acquires focus. Whenever the user’s input in any of the above three text boxes changes, if the input is not valid, this text box should display “NaN”, and if the input is valid, the total cost of the user’s order is recalculated and displayed in this text box. This calculation is to be done completely at the client side using JavaScript.
